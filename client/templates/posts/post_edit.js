@@ -14,6 +14,10 @@ Template.postEdit.events({
 			if (error)
 				return alert(error.reason);
 
+			// disallow unauthorized user to edit
+			if (result.isUnauthorized)
+				return alert('Access denied');
+
 			// show this result but route anyway
 			if (result.postExists)
 				alert('This link has already been existed');
