@@ -30,15 +30,15 @@ Template.postEdit.events({
 		Meteor.call('postUpdate', currentPostId, postProperties, function(error, result) {
 			// display the error to the user and abort
 			if (error)
-				return throwError(error.reason);
+				Errors.throw(error.reason);
 
 			// disallow unauthorized user to edit
 			if (result.isUnauthorized)
-				return throwError('Access denied');
+				Errors.throw('Access denied');
 
 			// show this result but route anyway
 			if (result.postExists)
-				throwError('This link has already been existed');
+				Errors.throw('This link has already been existed');
 
 			Router.go('postPage', {_id: result._id});
 		});
